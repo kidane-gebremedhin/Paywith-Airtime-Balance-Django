@@ -1,0 +1,41 @@
+{% extends 'payment_records/base.html' %}
+{% block content %}
+<div class="col-md-12" style="margin: 10px">
+	<h3>Payment Record Detail</h3>
+</div>
+<table class="table">
+		<tr>
+			<td>Full Name</td>
+			<td>{{object.fullName}}</td>
+		</tr>	
+		<tr>
+			<td>Ticket Code</td>
+			<td><h4> {{object.ticketCode}} </h4></td>
+		</tr>	
+		<tr>
+			<td>Game</td>
+			<td>{{object.game}}</td>
+		</tr>
+		<tr>
+			<td>Phone Number</td>
+			<td>{{object.phoneNumber}}</td>
+		</tr>	
+		<tr>
+			<td>Paid Amount</td>
+			<td>{{object.paidAmount}}</td>
+		</tr>	
+		<tr>
+			 <td>Home/Away Status</td>
+			 <td>{{object.homeOrAwayStatus}}</td>
+		</tr>	 
+		<tr>
+			<td>Payment Date</td> 
+			<td>{{object.date|date:'F d, Y'}}</td> 
+		</tr>	
+		<tr>
+			<td></td>
+			<td><a href="{% url 'list-payment-records' %}" class="btn btn-success pull-right">Back to List</a></td>
+		</tr>
+	</table>
+{% endblock content %}
+

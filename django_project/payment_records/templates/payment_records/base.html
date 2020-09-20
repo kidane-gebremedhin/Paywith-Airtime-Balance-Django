@@ -1,0 +1,170 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+
+ <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+  <link rel="stylesheet" type="text/css" href="{% static 'blog/main.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'blog/bootstrap.css' %}">
+
+<!-- Scripts -->
+    <script src="{% static 'blog/jquery.js' %}"></script>
+    <script src="{% static 'blog/bootstrap.js' %}"></script>
+    
+	<title>
+		E-Ticket {% if title %}
+		- {{title}}
+		{% else  %}
+		
+		{% endif %}
+	</title>
+</head>
+<body>
+
+<header class="site-header">
+  <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
+    <div class="container">
+      <a class="navbar-brand mr-4" href="/">E-Ticket</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarToggle">
+        <div class="navbar-nav mr-auto">
+          <a class="nav-item nav-link" href="/admin/auth/user">Admin</a>
+          <a class="nav-item nav-link" href="{%url 'blog-home'%}">Home</a>
+          <a class="nav-item nav-link" href="{%url 'blog-about'%}">About</a>
+          {% if user.is_authenticated %}
+            <a class="nav-item nav-link" href="{% url 'logout' %}">Logout</a>
+            <a class="nav-item nav-link" href="{% url 'profile' %}">Profile</a>
+            <a class="nav-item nav-link" href="{% url 'post-create' %}">New Post</a>
+            <a class="nav-item nav-link" href="{% url 'list-payment-records' %}">Payment Records</a>
+          {% else %}
+          <a class="nav-item nav-link" href="{% url 'login' %}">Login</a>
+          <a class="nav-item nav-link" href="{% url 'register' %}">Register</a>
+          {% endif %}
+        </div>
+        <!-- Navbar Right Side -->
+        <!-- <div class="navbar-nav">
+          <a class="nav-item nav-link" href="#">Login</a>
+          <a class="nav-item nav-link" href="#">Register</a>
+        </div> -->
+      </div>
+    </div>
+  </nav>
+</header>
+
+<!-- <div class="nav">
+	<a href="/admin/auth/user">Admin</a>
+	<a href="{%url 'blog-home'%}">Home</a>
+	<a href="{%url 'blog-about'%}">About</a>
+	{% if user.is_authenticated %}
+		<a href="{% url 'logout' %}">Logout</a>
+		<a href="{% url 'profile' %}">Profile</a>
+    <a href="{% url 'post-create' %}">New Post</a>
+		<a href="{% url 'list-payment-records' %}">Payment Records</a>
+	{% else %}
+	<a href="{% url 'login' %}">Login</a>
+	<a href="{% url 'register' %}">Register</a>
+	{% endif %}
+</div> -->
+
+
+<main role="main" class="container">
+  <div class="row">
+    <div class="col-md-8">
+    {% if messages %}
+		{% for message in messages %}
+			<div class="alert alert-{{message.tags}}">{{message}}</div>
+		{% endfor %}
+	{% endif %}
+
+      {% block content %}{% endblock %}
+    </div>
+    <div class="col-md-4">
+      <div class="content-section" style="height: 45  0px">
+      <div class="row">
+      <form>
+        <div class="col-md-8">
+        <input type="text" name="ticketCode" class="ticketCode form-control">
+        </div>
+        <div class="col-md-2">
+        <button type="submit" class="ticketVerificationBtn btn btn-success">Verify Ticket</button>
+        </div>
+        </form>
+      </div>
+      <hr>
+        <fieldset>
+          <legend>Ticket Verification Result</legend>
+          <p class='text-warning'>Detail Information will be displayed here on success</p>
+          <div class="ticket-verification-result content-section" style="height: 250px"></div>
+        </fieldset>
+        
+          
+      </div>
+
+    </div>
+  </div>
+</main>
+
+
+<!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script> -->
+
+
+
+    <script type="text/javascript">
+    /*
+      $('.ajaxContent').append('<table class="table">    <thead><th>Game</th><th>Ticket Code</th><th>Full Name</th><th>Phone Number</th><th>Paid Amount</th><!-- <th>Home/Away Status</th><th>Payment Date</th> --><th></th></thead>{% for object in objects %}<tr><td>{{object.game}}</td><td>{{object.ticketCode}}</td><td>{{object.fullName}}</td><td>{{object.phoneNumber}}</td><td>{{object.paidAmount}}</td><!-- <td>{{object.homeOrAwayStatus}}</td><td>{{object.date|date:'F d, Y'}}</td> --><td><a href="{% url 'payment-records-detail' object.pk %}" style="color: green">Detail</a></td></tr>{% endfor %}</table>')
+      */
+    </script>
+
+
+<script type="text/javascript">
+$(function(){
+  $('.fullName').keyup(function(e){
+    e.preventDefault()
+
+    $.ajax({
+      type:'POST',
+      data:{'fullName':$('.fullName').val()},
+      url:'{% url "search-by-name" %}',
+      success: searchSuccess,
+      dataType:'html',
+    })
+  })
+
+  $('.ticketVerificationBtn').click(function(e){
+    e.preventDefault()
+    
+    $.ajax({
+      type:'POST',
+      data:{'ticketCode':$('.ticketCode').val()},
+      url:'{% url "search-by-ticketCode" %}',
+      success: verificationResult,
+      dataType:'html',
+    })
+  })
+
+})
+
+function searchSuccess(data, textStatus, jqXHR){
+  $('.search-results').html(data)
+}
+function verificationResult(data, textStatus, jqXHR){
+  $('.ticket-verification-result').html(data)
+}
+
+</script>
+
+</body>
+</html>

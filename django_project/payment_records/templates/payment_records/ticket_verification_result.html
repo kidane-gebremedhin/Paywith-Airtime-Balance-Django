@@ -1,0 +1,26 @@
+{% if objects.count > 0 %}
+	<table class="table">
+	{% for object in objects %}
+		<tr>
+			<th>Full Name</th><td>{{object.fullName}}</td>
+		</tr>
+		<tr>
+			<th>Ticket Code</th><td>{{object.ticketCode}}</td>
+		</tr>
+		<tr>
+			<th>Phone Number</th><td>{{object.phoneNumber}}</td>
+		</tr>
+		<tr>
+			<th>Paid Amount</th><td>{{object.paidAmount}}</td>
+		</tr>
+		<tr>
+			<th>Payment Date</th><td>{{object.date|date:'F d, Y'}}</td>
+		</tr>
+		<tr> 
+			<td colspan="2"><a href="{% url 'payment-records-detail' object.pk %}" class="btn btn-warning btn-xs btn-block">View Detail</a></td>
+		</tr>
+	{% endfor %}
+	</table>
+{% else %}
+<h3><center>No result found!</center></h3>
+{% endif %}

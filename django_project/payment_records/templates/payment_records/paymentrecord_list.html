@@ -1,0 +1,23 @@
+{% extends 'payment_records/base.html' %}
+{% block content %}
+<div class="col-md-12" style="margin-top: 30px; margin-bottom: 30px;">
+<div class="col-md-4">
+<span class="pull-right" style="font-size: 20px">Search by Name</span>
+</div>
+<div class="col-md-6">
+<input type="text" name="fullName" class="fullName form-control">
+</div>
+<!-- <div class="col-md-6">
+<input type="text" name="ticketCode" class="ticketCode form-control">
+</div>
+<div class="col-md-2">
+<button type="submit" class="ticketVerificationBtn btn btn-success">Verify Ticket</button>
+</div> -->
+</div>
+	
+<div class="search-results">
+	{% include 'payment_records/search_result.html' %}
+</div>
+
+{% endblock content %}
+
