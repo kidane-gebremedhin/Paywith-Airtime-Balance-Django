@@ -1,1 +1,1 @@
-# card_payment_django_project
+# This tool lets you Pay with your Airtime balance
